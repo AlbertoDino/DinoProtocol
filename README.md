@@ -2,7 +2,7 @@
 
 > **WARNING: This is an experimental project. The smart contracts have NOT been audited. Use at your own risk.**
 
-DinoProtocol is a dual-token DeFi system on Ethereum. Users deposit ETH at a 1.5x collateral ratio to mint DPRIME (a $1-pegged stablecoin) and DNYLD (a leveraged equity token). It features permissionless redemption, dynamic fees, multi-state crisis management, and oracle-driven pricing to maintain system solvency.
+DinoProtocol is a tranche-based dual-token DeFi protocol on Ethereum. It splits ETH collateral into a senior tranche (DPRIME, a $1-pegged stablecoin) and a junior/equity tranche (DNYLD, 3x leveraged ETH exposure). Users deposit ETH at a 1.5x collateral ratio to mint both tokens simultaneously. The protocol features permissionless redemption, dynamic fees, multi-state crisis management, and oracle-driven pricing to maintain system solvency.
 
 ## Deployed Contracts (Ethereum Mainnet)
 
@@ -23,7 +23,17 @@ DinoProtocol is a dual-token DeFi system on Ethereum. Users deposit ETH at a 1.5
 DinoProtocol issues two tokens against a shared pool of overcollateralized ETH:
 
 - **DPRIME** -- A stablecoin pegged to $1 USD. It represents a debt claim protected by the collateral pool.
-- **DNYLD** -- An equity token representing a pro-rata claim on the surplus collateral (the spread above the 1.5x ratio). DNYLD provides leveraged ETH exposure.
+- **DNYLD** -- An equity token representing a pro-rata claim on the surplus collateral (the spread above the 1.5x ratio). DNYLD provides **3x leveraged ETH exposure**.
+
+### DNYLD Leverage
+
+Because only $0.50 of every $1.50 deposited flows into equity, DNYLD amplifies ETH price movements:
+
+```
+Leverage = Collateral / Equity = 1.50 / 0.50 = 3x
+```
+
+A **10% ETH price move** translates to roughly a **30% DNYLD NAV move** (in either direction). This makes DNYLD attractive for bullish ETH exposure but carries proportionally higher downside risk.
 
 ### Entering a Position
 
@@ -154,6 +164,7 @@ All core contracts use the UUPS proxy pattern (OpenZeppelin) and are upgradeable
 | NAV per DNYLD | `(Total Collateral USD - Total DPRIME) / Total DNYLD Supply` |
 | DPRIME minted | `ETH deposited in USD / 1.5` |
 | DNYLD minted | `(ETH in USD - DPRIME minted) / NAV` |
+| DNYLD leverage | `Collateral / Equity = 1.5 / 0.5 = 3x` |
 | Headroom | `(Current Equity - Min Equity) * Total DNYLD / Current Equity` |
 
 ---
