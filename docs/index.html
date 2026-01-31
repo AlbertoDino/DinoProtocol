@@ -102,6 +102,54 @@
             background: var(--primary-light);
         }
 
+    /* Warning Banner */
+    .warning-banner {
+        background: linear-gradient(135deg, #f0d98d 0%, #774f05 100%);
+        padding: 1rem 2rem;
+        text-align: center;
+        position: relative;
+        margin-top: 73px; /* Account for fixed nav */
+    }
+
+    .warning-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .warning-icon {
+        background: rgba(255, 255, 255, 0.15);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .warning-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: #fef3c7;
+    }
+
+    .warning-text {
+        color: #fef3c7;
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    .warning-text strong {
+        color: #ffffff;
+        font-weight: 700;
+    }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
@@ -564,7 +612,7 @@
                 <li><a href="#tokens">Tokens</a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#contracts">Contracts</a></li>
-                <li><a href="https://github.com/your-repo" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/AlbertoDino/DinoProtocol" target="_blank">GitHub</a></li>
             </ul>
             <a href="https://app.uniswap.org/positions/v4/ethereum/147246" target="_blank" class="nav-cta">Trade On Uniswap</a>
         </div>
@@ -707,6 +755,18 @@
         </div>
     </section>
 
+    <div class="warning-banner">
+    <div class="warning-content">
+        <div class="warning-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+        </div>
+        <p class="warning-text">
+            <strong>WARNING:</strong> This is an experimental project. The smart contracts have <strong>NOT</strong> been audited. Use at your own risk.
+        </p>
+    </div>
+    </div>
     <!-- Security Section -->
     <section class="security">
         <div class="security-content">
