@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DinoProtocol - Institutional-Grade DeFi</title>
+    <meta name="description" content="DPRIME stablecoin and DNYLD leveraged ETH exposure - Built on Ethereum">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #999ac0;
+            --primary-light: #2c5282;
+            --secondary: #45627c;
+            --accent: #63b3ed;
+            --background: #f7fafc;
+            --surface: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+            --success: #38a169;
+            --gradient-start: #28b646;
+            --gradient-end: #2c5282;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--background);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tokens Section */
+        .tokens {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .token-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .token-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .token-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+
+        .token-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .token-icon.dprime {
+            content: "./assets/DinoPrime.svg";
+            color: white;
+        }
+
+        .token-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .token-card .symbol {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .token-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .token-features {
+            list-style: none;
+        }
+
+        .token-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .token-features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: var(--surface);
+            padding: 6rem 2rem;
+        }
+
+        .how-it-works-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contracts Section */
+        .contracts {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contract-list {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .contract-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .contract-item:last-child {
+            border-bottom: none;
+        }
+
+        .contract-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 150px;
+        }
+
+        .contract-address {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: var(--background);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            word-break: break-all;
+        }
+
+        .contract-address a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .contract-address a:hover {
+            text-decoration: underline;
+        }
+
+        /* Security Section */
+        .security {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 6rem 2rem;
+            color: white;
+        }
+
+        .security-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .security h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .security > .security-content > p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .security-feature {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .security-feature h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .security-feature p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .token-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contract-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Dino<span>Protocol</span></a>
+            <ul class="nav-links">
+                <li><a href="#tokens">Tokens</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#contracts">Contracts</a></li>
+                <li><a href="https://github.com/your-repo" target="_blank">GitHub</a></li>
+            </ul>
+            <a href="https://app.uniswap.org/positions/v4/ethereum/147246" target="_blank" class="nav-cta">Trade On Uniswap</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>A Dual-Tranche Structured Defi protocol</h1>
+            <p>Access stable yields and leveraged exposure through our dual-token system. Built on Ethereum with institutional-grade security.</p>
+            <div class="hero-buttons">
+                <a href="#tokens" class="btn btn-primary">Explore Tokens</a>
+                <a href="#contracts" class="btn btn-secondary">View Contracts</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat">
+                <div class="stat-value">150%</div>
+                <div class="stat-label">Minimum Collateral Ratio</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3x</div>
+                <div class="stat-label">Maximum Leverage</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">0.5%</div>
+                <div class="stat-label">Base Redemption Fee</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">ETH</div>
+                <div class="stat-label">Collateral Asset</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokens Section -->
+    <section id="tokens" class="tokens">
+        <div class="section-header">
+            <h2>ERC-20 Tokens</h2>
+            <p>Two complementary tokens designed to meet different investment objectives while maintaining system stability.</p>
+        </div>
+        <div class="token-cards">
+            <div class="token-card">
+                <div class="hero-buttons">
+                    <img src="./assets/DinoPrime.svg" alt="DinoProtocol" class="logo-img">
+                    <h3>DinoPrime</h3>
+                </div>
+                <div class="symbol">DPRIME</div>
+                <p>A USD-pegged stablecoin fully backed by ETH collateral.</p>
+                <ul class="token-features">
+                    <li>1:1 USD peg target</li>
+                    <li>Overcollateralized by ETH (150%+)</li>
+                    <li>Redeemable for underlying collateral</li>
+                </ul>
+            </div>
+            <div class="token-card">
+                <div class="hero-buttons">
+                <img src="./assets/DinoYield.svg" alt="DinoProtocol" class="logo-img">
+                <h3>DinoYield</h3>
+                </div>
+                <div class="symbol">DNYLD</div>
+                <p>A leveraged ETH exposure token offering amplified returns. Designed for users seeking enhanced market participation.</p>
+                <ul class="token-features">
+                    <li>Up to 3x ETH exposure</li>
+                    <li>NAV-based redemption value</li>
+                    <li>Ideal for bullish ETH outlook</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="how-it-works-content">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>A simple three-step process to enter and exit the protocol.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Deposit ETH</h3>
+                    <p>Deposit ETH into the protocol. Your collateral is securely held in audited smart contracts.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Receive Tokens</h3>
+                    <p>Receive DPRIME (stablecoin) and DNYLD (leveraged token) proportionally based on your deposit.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Redeem Anytime</h3>
+                    <p>Redeem your tokens for ETH at any time, subject to system state and applicable fees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contracts Section -->
+    <section id="contracts" class="contracts">
+        <div class="section-header">
+            <h2>Smart Contracts</h2>
+            <p>All contracts are verified and deployed on Ethereum Mainnet.</p>
+        </div>
+        <div class="contract-list">
+            <div class="contract-item">
+                <span class="contract-name">DinoProtocol</span>
+                <span class="contract-address">
+                    <a href="https://etherscan.io/address/0x22657ca5Bb7Ab5Ef236CbA5e212dBC9F6bEA67DF" target="_blank">0x22657ca5Bb7Ab5Ef236CbA5e212dBC9F6bEA67DF</a>
+                </span>
+            </div>
+            <div class="contract-item">
+                <span class="contract-name">DPRIME Token</span>
+                <span class="contract-address">
+                    <a href="https://etherscan.io/address/0x1EeCAC6DB1Ea98E8535982ac2f59232cB4C86dAf" target="_blank">0x1EeCAC6DB1Ea98E8535982ac2f59232cB4C86dAf</a>
+                </span>
+            </div>
+            <div class="contract-item">
+                <span class="contract-name">DNYLD Token</span>
+                <span class="contract-address">
+                    <a href="https://etherscan.io/address/0x870FD8c386aA8Dc437e61757630A8bfC24133396" target="_blank">0x870FD8c386aA8Dc437e61757630A8bfC24133396</a>
+                </span>
+            </div>
+            <div class="contract-item">
+                <span class="contract-name">Collateral Vault</span>
+                <span class="contract-address">
+                    <a href="https://etherscan.io/address/0x61f5cBCbEf28432542239f5242219C5ceb8684a1" target="_blank">0x61f5cBCbEf28432542239f5242219C5ceb8684a1</a>
+                </span>
+            </div>
+            <div class="contract-item">
+                <span class="contract-name">Oracle</span>
+                <span class="contract-address">
+                    <a href="https://etherscan.io/address/0x7583BA7be2eb285d569223E186c4ABa930270e05" target="_blank">0x7583BA7be2eb285d569223E186c4ABa930270e05</a>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="security">
+        <div class="security-content">
+            <h2>Security</h2>
+            <p>Safe Guards measures and crisis management system to protect your assets.</p>
+            <div class="security-features">
+                <div class="security-feature">
+                    <h3>Overcollateralized</h3>
+                    <p>All positions maintain a minimum 150% collateral ratio, ensuring system solvency.</p>
+                </div>
+                <div class="security-feature">
+                    <h3>Multi-Oracle Price Feeds</h3>
+                    <p>Chainlink and Uniswap V3 TWAP oracles provide manipulation-resistant pricing.</p>
+                </div>
+                <div class="security-feature">
+                    <h3>Circuit Breakers</h3>
+                    <p>Automatic safeguards activate during extreme market conditions to protect the protocol.</p>
+                </div>
+                <div class="security-feature">
+                    <h3>Upgradeable Contracts</h3>
+                    <p>UUPS proxy pattern allows for security patches while maintaining immutability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Protocol</h4>
+                    <ul>
+                        <li><a href="#tokens">Tokens</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#contracts">Contracts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="https://github.com/AlbertoDino/DinoProtocol" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <!-- <div class="footer-section"> -->
+                    <!-- <h4>Community</h4> -->
+                    <!-- <ul> -->
+                        <!-- <li><a href="#">Twitter</a></li> -->
+                        <!-- <li><a href="#">Discord</a></li> -->
+                        <!-- <li><a href="#">Telegram</a></li> -->
+                    <!-- </ul> -->
+                <!-- </div> -->
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Experimental protocol</a></li>
+                        <!-- <li><a href="#">Privacy Policy</a></li> -->
+                        <!-- <li><a href="#">Risk Disclosure</a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DinoProtocol. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/AlbertoDino/DinoProtocol" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
