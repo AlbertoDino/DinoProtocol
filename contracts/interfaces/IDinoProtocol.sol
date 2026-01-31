@@ -9,10 +9,10 @@ interface IDinoProtocol {
 
     /// @notice System state based on collateral ratio
     enum SystemState {
-        NORMAL,
-        CAUTION,
-        RECOVERY,
-        CRITICAL
+        NORMAL,    // 0
+        CAUTION,   // 1
+        RECOVERY,  // 2
+        CRITICAL   // 3
     }
 
     // ** ----- Entry Points ----- **
@@ -49,21 +49,21 @@ interface IDinoProtocol {
     /// @param ethAmount ETH deposited
     /// @param dprimeAmount DPRIME minted
     /// @param dnyldAmount DNYLD minted
-    event DinoExposure(address indexed user, uint256 ethAmount, uint256 dprimeAmount, uint256 dnyldAmount);
+    event DinoExposure(address indexed user, uint256 ethAmount, uint256 price, uint256 dprimeAmount, uint256 dnyldAmount);
 
     /// @notice Emitted when DPRIME is redeemed
     /// @param user User address
     /// @param dprimeAmount DPRIME burned
     /// @param ethAmount ETH returned
     /// @param fee Fee charged
-    event DPRIMERedeemed(address indexed user, uint256 dprimeAmount, uint256 ethAmount, uint256 fee);
+    event DPRIMERedeemed(address indexed user, uint256 dprimeAmount, uint256 ethAmount,uint256 price, uint256 fee);
 
     /// @notice Emitted when DNYLD is redeemed
     /// @param user User address
     /// @param dnyldAmount DNYLD burned
     /// @param ethAmount ETH returned
     /// @param fee Fee charged
-    event DNYLDRedeemed(address indexed user, uint256 dnyldAmount, uint256 ethAmount, uint256 fee);
+    event DNYLDRedeemed(address indexed user, uint256 dnyldAmount, uint256 ethAmount,uint256 price, uint256 fee);
 
     /// @notice Emitted when system state changes
     /// @param previousState Previous state

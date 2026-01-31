@@ -237,7 +237,7 @@ contract DinoProtocol is
         dprime.mint(msg.sender, dprimeAmount);
         dnyld.mint(msg.sender, dnyldAmount);
 
-        emit DinoExposure(msg.sender, msg.value, dprimeAmount, dnyldAmount);
+        emit DinoExposure(msg.sender, msg.value, ethPrice, dprimeAmount, dnyldAmount);
 
         _updateSystemState();
     }
@@ -270,7 +270,7 @@ contract DinoProtocol is
         dprime.mint(msg.sender, dprimeAmount);
         dnyld.mint(msg.sender, dnyldAmount);
 
-        emit DinoExposure(msg.sender, amount, dprimeAmount, dnyldAmount);
+        emit DinoExposure(msg.sender, amount, ethPrice, dprimeAmount, dnyldAmount);
 
         _updateSystemState();
     }
@@ -311,7 +311,7 @@ contract DinoProtocol is
         // Withdraw WETH to user
         vault.withdrawEth(msg.sender, ethNetAmount);
 
-        emit DPRIMERedeemed(msg.sender, dPrimeAmount, ethNetAmount, fee);
+        emit DPRIMERedeemed(msg.sender, dPrimeAmount, ethNetAmount, ethPrice, fee);
         _updateSystemState();
 
     }
@@ -353,7 +353,7 @@ contract DinoProtocol is
         // Withdraw WETH to user
         vault.withdrawEth(msg.sender, ethAmount);
 
-        emit DNYLDRedeemed(msg.sender, amount, ethAmount, fee);
+        emit DNYLDRedeemed(msg.sender, amount, ethAmount, ethPrice, fee);
         _updateSystemState();
     }
 
@@ -695,7 +695,7 @@ contract DinoProtocol is
         uint256 totalSupply = dprime.totalSupply();
 
         if (state == SystemState.NORMAL) return type(uint256).max;
-        if (state == SystemState.CAUTION) return (totalSupply * 5) / 100;  // 5%
+        if (state == SystemState.CAUTION) return (totalSupply * 10) / 100; // 10%
         if (state == SystemState.RECOVERY) return (totalSupply * 2) / 100; // 2%
         return 0; // CRITICAL - frozen
 
