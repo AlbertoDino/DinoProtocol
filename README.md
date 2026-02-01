@@ -6,13 +6,7 @@ DinoProtocol is a tranche-based dual-token DeFi protocol on Ethereum. It splits 
 
 ## Deployed Contracts (Ethereum Mainnet)
 
-| Contract         | Address                                                                                                               |
-|------------------|-----------------------------------------------------------------------------------------------------------------------|
-| DinoProtocol     | [`0x22657ca5Bb7Ab5Ef236CbA5e212dBC9F6bEA67DF`](https://etherscan.io/address/0x22657ca5Bb7Ab5Ef236CbA5e212dBC9F6bEA67DF) |
-| DPRIME           | [`0x1EeCAC6DB1Ea98E8535982ac2f59232cB4C86dAf`](https://etherscan.io/address/0x1EeCAC6DB1Ea98E8535982ac2f59232cB4C86dAf) |
-| DNYLD            | [`0x870FD8c386aA8Dc437e61757630A8bfC24133396`](https://etherscan.io/address/0x870FD8c386aA8Dc437e61757630A8bfC24133396) |
-| Oracle           | [`0x7583BA7be2eb285d569223E186c4ABa930270e05`](https://etherscan.io/address/0x7583BA7be2eb285d569223E186c4ABa930270e05) |
-| CollateralVault  | [`0x61f5cBCbEf28432542239f5242219C5ceb8684a1`](https://etherscan.io/address/0x61f5cBCbEf28432542239f5242219C5ceb8684a1) |
+Visit [`Website`](https://albertodino.github.io/DinoProtocol/)
 
 ---
 
